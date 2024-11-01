@@ -1,0 +1,81 @@
+openapi: 3.0.0
+info:
+  title: Article Like API
+  description: API for managing likes for articles.
+  version: '1.0'
+  contact:
+    name: Support Team
+    email: support@example.com
+
+servers:
+  - url: http://localhost:5000/api/v1
+    description: Local development server
+
+paths:
+  /articles/{id}/likes:
+    get:
+      tags:
+        - Likes
+      summary: Get article like count
+      operationId: getArticleLikes
+      description: Retrieve the like count for a specific article by its ID.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: The article ID
+      responses:
+        '200':
+          description: Successfully retrieved like count
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Article ID
+                  likes:
+                    type: integer
+                    description: Number of likes for the article
+        '404':
+          description: Article not found
+
+  /articles/like-article:
+    post:
+      tags:
+        - Likes
+      summary: Like an article
+      operationId: likeArticle
+      description: Increment the like count for a specific article.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  description: The article ID to be liked
+      responses:
+        '200':
+          description: Article like count successfully incremented
+        '404':
+          description: Article not found
+
+components:
+  securitySchemes:
+    httpBearer:
+      type: http
+      scheme: bearer
+      description: Bearer authentication for API access
+
+security:
+  - httpBearer: []
+
+tags:
+  - name: Likes
+    description: Operations related to article likes
