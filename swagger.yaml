@@ -25,6 +25,7 @@ paths:
           required: true
           schema:
             type: string
+            example: "67253cca16f99a1e32077a89"  # Example ID for testing
           description: The article ID
       responses:
         '200':
@@ -60,6 +61,7 @@ paths:
                 id:
                   type: string
                   description: The article ID to be liked
+                  example: "67253cca16f99a1e32077a89"  # Example ID for testing
       responses:
         '200':
           description: Article like count successfully incremented
